@@ -37,3 +37,23 @@ db.movies.find({}, { title: 1, rated: 1, _id: 0 }).sort({ title: -1 }).limit(10)
 
 // Contar cuantas peliculas hay con el rating "PG"
 db.movies.find({ rated: "PG" }).count()
+
+/* -- Operadores de Comparación */
+// En MongoDB se pueden utilizar operadores de comparación para realizar consultas más específicas. Algunos de los operadores de comparación más comunes son:
+// $eq: Igual a
+// $ne: Diferente de
+// $gt: Mayor que
+// $gte: Mayor o igual
+// $lt: Menor que
+// $lte: Menor o igual
+
+// Traer las peliculas con imdb.rating mayor a 9
+db.movies.find({ "imdb.rating": { $gt: 9 } })
+
+// $in: Selecciona los documentos donde el valor de un campo es igual a cualquiera de los valores especificados en un array.
+
+// Contar cuantas películas hay con rating PG y PG-13
+db.movies.find({ rated: { $in: ["PG", "PG-13"] } }).count()
+
+// Encontrar el top 10 de peliculas con mejor imdb.rating, ignorando los campos vacios y devolviendo solo el title y el imdb.rating
+db.movies.find({ "imdb.rating": { $ne: "" } }, { title: 1, "imdb.rating": 1, _id: 0 }).sort({ "imdb.rating": -1 }).limit(10)
