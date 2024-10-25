@@ -3,8 +3,15 @@ import Car from '../models/Car.js'
 // Create
 const createCar = async (req, res) => {
   try {
-    const car = await Car.create(req.body) // insert
-    res.status(201).json(car)
+    if (Array.isArray(req.body)) {
+      // Si req.body es un array, insertar múltiples autos
+      const cars = await Car.insertMany(req.body)
+      res.status(201).json(cars)
+    } else {
+      // Si req.body no es un array, insertar un solo auto
+      const car = await Car.create(req.body)
+      res.status(201).json(car)
+    }
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
