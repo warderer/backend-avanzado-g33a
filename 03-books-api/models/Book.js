@@ -7,7 +7,7 @@ const bookSchema = new mongoose.Schema({
   summary: String,
   genre: { type: String, required: true, enum: genreEnum },
   publishDate: { type: Date }, // YYYY-MM-DD
-  authors: [{ type: mongoose.Schema.Type.ObjectId, ref: 'Author', required: true }], // ObjectID es un tipo de dato utilizado por Mongoose para identificar documetos en MongoDB. ref: 'Author' indica que el campo authors hace referencia a la colección Author.
+  authors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Author', required: true }], // ObjectID es un tipo de dato utilizado por Mongoose para identificar documetos en MongoDB. ref: 'Author' indica que el campo authors hace referencia a la colección Author.
   publisher: { type: String, required: true },
   price: { type: Number, required: true },
   imgUrl: { type: String, required: true },
