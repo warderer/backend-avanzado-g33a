@@ -102,10 +102,42 @@ const updateBookById = async (req, res) => {
 }
 
 // DELETE
+const deleteBookById = async (req, res) => {
+  // Valido que el ID sea un ObjectID de MongoDB (24 caracteres alfanuméricos en hexadecimal)
+  if (!req.params.bookId.match(/^[0-9a-fA-F]{24}$/)) {
+    return res.status(400).json({ message: 'Invalid book ID' })
+  }
+
+  // HARD DELETE: Borrado físico de la base de datos.
+  // Si recibo el query ?destroy=true, borro el libro de la base de datos
+  if (req.query.destroy === 'true') {
+    try {
+      const book = await Book.findByIdAndDelete(req.params.bookId)
+      if (!book) {
+        return res.status(404).json({ message: 'Book not found' })
+      }
+      return res.status(204).end()
+    } catch (error) {
+      res.status(400).json({ message: error.message })
+    }
+  }
+
+  // SOFT DELETE: Cambio el estado (isActive) del libro a inactivo (false)
+  try {
+    const book = await Book.findByIdAndUpdate(req.params.bookId, { isActive: false }, { new: false })
+    if (!book || !book.isActive) {
+      return res.status(404).json({ message: 'Book not found' })
+    }
+    return res.status(204).end()
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+}
 
 export {
   createBook,
   getAllBooks,
   getBookById,
-  updateBookById
+  updateBookById,
+  deleteBookById
 }
