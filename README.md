@@ -103,6 +103,29 @@ Clase 100% práctica donde se realizarán los endpoints restantes para leer, act
 ### 5. Estrategias de Relaciones de Datos + API Rest de Repaso
 En MongoDB existen 2 estrategias para relacionar la información, colecciones embebidas y referenciadas. En esta clase se explicarán las diferencias y cuales usar en cada situación. Así mismo se creará un nuevo proyecto de API Rest con MongoDB a manera de repaso de todo lo aprendido hasta el momento.
 
+Datos de ejemplo para crear un libro.
+```json
+{
+        "title": "El Señor de los Anillos: La Comunidad del Anillo",
+        "summary": "Una novela épica de fantasía que narra la historia de un humilde hobbit encargado de destruir un anillo de poder.",
+        "genre": "Fantasy",
+        "publishDate": "1954-07-29",
+        "publisher": "George Allen & Unwin",
+        "price": 24.99,
+        "imgUrl": "https://covers.openlibrary.org/b/isbn/9780007203833-L.jpg",
+        "isbn": "9780007203833",
+        "isActive": true,
+      "authors": [
+        {
+            "firstName": "J.R.R.",
+            "lastName": "Tolkien",
+            "bio": "Escritor y filólogo británico, conocido por sus obras de fantasía como El Señor de los Anillos y El Hobbit.",
+            "birthDate": "1892-01-03"
+        }
+    ]
+}
+```
+
 ### 6. API Rest de Repaso + Validaciones + Morgan
 Se continua el desarrollo de la API Rest de Repaso, implementando validaciones más robustas. Como plus se verá la libreria de Morgan para realizar logs en consola más informativos de lo que sucede en nuestra API en desarrollo.
 
