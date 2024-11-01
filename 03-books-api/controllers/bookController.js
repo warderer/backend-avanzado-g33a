@@ -50,7 +50,9 @@ const createBook = async (req, res) => {
 // READ
 const getAllBooks = async (req, res) => {
   try {
-    const books = await Book.find({ isActive: true })
+    const books = await Book
+      .find({ isActive: true })
+      .populate('authors', 'firstName lastName bio birthDate -_id')
     if (!books) {
       return res.status(404).json({ message: 'No books found' })
     }
